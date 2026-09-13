@@ -8,16 +8,16 @@ bool getDoubled(int value, int & result)
 
 int main()
 {
-    std::cout << "name:chenxingyu" << std::endl;
-    std::cout << "id:2025010015" << std::endl;
+    std::cout << "姓名：陈星妤" << std::endl;
+    std::cout << "学号：2025010015" << std::endl;
 
     bool isStudent = true;
-    std::cout << "Is student: " << isStudent << std::endl;
+    std::cout << "是否为学生: " << isStudent << std::endl;
 
     int num = 15;
     int res;
     getDoubled(num, res);
-    std::cout << num << " the double of is " << res << std::endl;
+    std::cout << num << " 的两倍是" << res << std::endl;
 
     return 0;
 }
