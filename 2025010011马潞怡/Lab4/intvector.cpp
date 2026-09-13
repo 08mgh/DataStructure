@@ -4,82 +4,67 @@
 
 class IntVector {
 private:
-    int data[MAX_SIZE];   //Êı¾İ³ÉÔ±
+    int data[MAX_SIZE];
     int size;
 
 public:
-    // ¹¹Ôìº¯Êı£º½¨Á¢¿Õ±í£¬¶ÔÓ¦¿ÎÌÃÉÏµÄ initList
     IntVector() {
-        // TODO£º°Ñ size ÉèÎª 0
         size = 0;
     }
 
-    // µ±Ç°ÔªËØ¸öÊı¡£size ÊÇ private µÄ£¬ÀàÍâÖ»ÄÜÍ¨¹ıËü¶ÁÈ¡
     int getSize() const {
-        return size;   // TODO£º¸ÄÎª·µ»Ø size
+        return size;
     }
 
-    // ±íÊÇ·ñÎª¿Õ
     bool empty() const {
-        return size == 0;   // TODO
+        return size == 0;
     }
 
-    // Á·Ï° 1£º°´Î»ÖÃ¶ÁÈ¡£¬¶ÔÓ¦¿ÎÌÃÉÏµÄ getAt
-    // ³É¹¦·µ»Ø true ²¢°ÑÔªËØĞ´Èë value£»index ²»ÔÚ [0, size - 1] ÄÚ·µ»Ø false£¬ÇÒ²»ĞŞ¸Ä value
     bool get(int index, int& value) const {
-        if (index < 0|| index >= size) {
-            return false;     // TODO
+        if (index < 0 || index >= size) {
+            return false;
         }
         value = data[index];
         return true;
     }
 
-    // Á·Ï° 2£º°´Öµ²éÕÒ£¬¶ÔÓ¦¿ÎÌÃÉÏµÄ findValue
-    // ·µ»ØµÚÒ»´Î³öÏÖµÄÏÂ±ê£¬Î´ÕÒµ½·µ»Ø -1
     int find(int value) const {
-       for (int i = 0; i < size; i++) {
-           if (data[i] == value) {
-               return i;
-           }
-       }
-        return -1;   // TODO
+        for (int i = 0; i < size; i++) {
+            if (data[i] == value) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    // Á·Ï° 3£º²åÈë£¬¶ÔÓ¦ Lab3 µÄ insertAt
-    // ³É¹¦·µ»Ø true£»±íÒÑÂú£¨size == MAX_SIZE£©»ò index ²»ÔÚ [0, size] ÄÚ·µ»Ø false
     bool insert(int index, int value) {
-       if (size == MAX_SIZE || index < 0 || index > size) {
-           return false;
-       }
-        for (int i = size; i > index; --i) {
+        if (size == MAX_SIZE || index < 0 || index > size) {
+            return false;
+        }
+        for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
         }
         data[index] = value;
         size = size + 1;
-        return true;   // TODO
+        return true;
     }
 
-    // Á·Ï° 4£ºÉ¾³ı£¬¶ÔÓ¦ Lab3 µÄ removeAt
-    // ³É¹¦·µ»Ø true ²¢°Ñ±»É¾³ıµÄÖµĞ´Èë removed£»index ²»ÔÚ [0, size - 1] ÄÚ·µ»Ø false£¬ÇÒ²»ĞŞ¸Ä removed
     bool remove(int index, int& removed) {
-       if (index < 0|| index >= size) {
-           return false;
-       }
+        if (index < 0 || index >= size) {
+            return false;
+        }
         removed = data[index];
-        for (int i = index; i < size - 1; ++i) {
+        for (int i = index; i < size - 1; i++) {
             data[i] = data[i + 1];
         }
-        size -= 1;
-        return true;   // TODO
+        size = size - 1;
+        return true;
     }
 
-    // Á·Ï° 5£ºÊä³ö£¬¶ÔÓ¦ Lab3 µÄ printList
-    // ´ÓÏÂ±ê 0 µ½ size - 1 ÒÀ´ÎÊä³öËùÓĞÓĞĞ§ÔªËØ£¬ÔªËØÖ®¼äÓÃÒ»¸ö¿Õ¸ñ·Ö¸ô£¬Ä©Î²»»ĞĞ
     void print() const {
-        // TODO
-        for (int i = 0; i < size; ++i) {
-            if (i != 0) {
-                std::cout << ' ';
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
+                std::cout << " ";
             }
             std::cout << data[i];
         }
@@ -89,51 +74,47 @@ public:
 
 int main() {
     IntVector v;
-    std::cout << "¿Õ±í: size = " << v.getSize() << ", empty = " << v.empty() << std::endl;
+    std::cout << "ç©ºè¡¨: size = " << v.getSize() << ", empty = " << v.empty() << std::endl;
 
     v.insert(0, 10);
     v.insert(1, 20);
     v.insert(2, 30);
     v.insert(3, 40);
-    std::cout << "³õÊ¼: ";
+    std::cout << "åˆå§‹: ";
     v.print();
 
     bool ok = v.insert(2, 25);
-    std::cout << "insert(2, 25) ·µ»Ø " << ok << std::endl;
+    std::cout << "insert(2, 25) è¿”å› " << ok << std::endl;
     v.print();
 
     int removed = 0;
     ok = v.remove(1, removed);
-    std::cout << "remove(1) ·µ»Ø " << ok << ", É¾³ıµÄÖµÊÇ " << removed << std::endl;
+    std::cout << "remove(1) è¿”å› " << ok << ", åˆ é™¤çš„å€¼æ˜¯ " << removed << std::endl;
     v.print();
 
     ok = v.insert(10, 99);
-    std::cout << "insert(10, 99) ·µ»Ø " << ok << std::endl;
+    std::cout << "insert(10, 99) è¿”å› " << ok << std::endl;
     v.print();
 
     ok = v.remove(4, removed);
-    std::cout << "remove(4) ·µ»Ø " << ok << std::endl;
+    std::cout << "remove(4) è¿”å› " << ok << std::endl;
     v.print();
 
     int value = 0;
     ok = v.get(2, value);
-    std::cout << "get(2) ·µ»Ø " << ok << ", value = " << value << std::endl;
+    std::cout << "get(2) è¿”å› " << ok << ", value = " << value << std::endl;
     ok = v.get(4, value);
-    std::cout << "get(4) ·µ»Ø " << ok << std::endl;
+    std::cout << "get(4) è¿”å› " << ok << std::endl;
 
     std::cout << "find(30) = " << v.find(30) << std::endl;
     std::cout << "find(99) = " << v.find(99) << std::endl;
-    std::cout << "×îÖÕ: size = " << v.getSize() << ", empty = " << v.empty() << std::endl;
+    std::cout << "æœ€ç»ˆ: size = " << v.getSize() << ", empty = " << v.empty() << std::endl;
 
     IntVector other;
     other.insert(0, 7);
     std::cout << "other: ";
     other.print();
-    std::cout << "Á½¸ö¶ÔÏóµÄ size: " << v.getSize() << " " << other.getSize() << std::endl;
+    std::cout << "ä¸¤ä¸ªå¯¹è±¡çš„ size: " << v.getSize() << " " << other.getSize() << std::endl;
 
     return 0;
 }
-
-//
-// Created by Grape on 2026/9/13.
-//
