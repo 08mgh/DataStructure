@@ -58,25 +58,25 @@ int main()
     list.data[2] = 30;
     list.data[3] = 40;
 
-    printf("initial: ");
+    printf("初始: ");
     printList(&list);
 
     int ret;
     ret = insertAt(&list, 2, 25);
-    printf("insertAt(2, 25) returns %d\n", ret);
+    printf("insertAt(2, 25) 返回 %d\n", ret);
     printList(&list);
 
     int removed;
     ret = removeAt(&list, 1, &removed);
-    printf("removeAt(1) returns %d, removed valie is %d\n", ret, removed);
+    printf("removeAt(1) 返回 %d, 删除的值是 %d\n", ret, removed);
     printList(&list);
 
     ret = insertAt(&list, 10, 99);
-    printf("insertAt(10, 99) returns %d\n", ret);
+    printf("insertAt(10, 99) 返回 %d\n", ret);
     printList(&list);
 
     ret = removeAt(&list, 4, &removed);
-    printf("removeAt(4) returns %d\n", ret);
+    printf("removeAt(4) 返回 %d\n", ret);
     printList(&list);
 
     return 0;
