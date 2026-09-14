@@ -129,3 +129,49 @@ assignments:
       - intvector.cpp 不得把数据成员改为 public 或删除 private，不得在类外直接访问 data 或 size，不得使用 printf、std::vector、new、delete 或全局变量，不得把输出结果写死在 cout 中，输出参数必须是引用 int& 而不是指针。
       - Lab4.md 必须保留题目结构，每道单项选择题必须且只能有一个选项被改为 [x]，不能全部不选或多选；4.11 的填空不能留空，选择“一致”时填写“无”；4.12 的对应表右列至少填写三行；4.13 的填空不能留空。
       - 只检查是否完成作答和程序是否完整，不判断选项、程序输出和文字回答是否正确。
+  Lab5:
+    deadline: "2026-09-22T00:00:00+08:00"
+    min_nonempty_lines: 5
+    allow_extra_files: false
+    vision_review: true
+    required_files:
+      - CMakeLists.txt
+      - intvector.cpp
+      - Lab5.md
+      - imgs/memory_before.png
+      - imgs/memory_copied.png
+      - imgs/memory_after.png
+    vision_files:
+      - imgs/memory_before.png
+      - imgs/memory_copied.png
+      - imgs/memory_after.png
+    review_points:
+      - >-
+        CMakeLists.txt 必须用 project 声明 C 和 CXX，设置 C++17，且有且只有一个 add_executable，目标 lab5_cpp 对应 intvector.cpp。
+      - >-
+        intvector.cpp 必须是完整的 C++ 程序，包含 class IntVector，三个数据成员 int* data、int size、int capacity 和 expand() 位于 private 下；public 下包含接收默认初始容量 4 的构造函数、析构函数，以及 getSize、getCapacity、empty、get、find、insert、remove、pushBack、print。所有函数体写在类内，不能仍是 TODO 或仅保留框架占位实现。
+      - >-
+        构造函数和 expand 中须有动态数组申请，析构函数和 expand 中须有数组释放代码；pushBack 通过 insert(size, value) 追加；保留 IntVector(const IntVector&) = delete 和 IntVector& operator=(const IntVector&) = delete 两行。输出参数保持引用 int&，查询函数保留 const。
+      - >-
+        main 必须保留题目给出的完整测试流程，包括空表 get/remove、追加 10/20/30/40、满表 insert(5, 99)、追加 50、表头插入 5、中间插入 25、表尾插入 60、满表 insert(4, 28)、三种位置删除、get/find 与非法操作、六次删除清空后追加 -1，以及 small(0) 追加两个 7 和 negative(-3) 的独立对象测试；不得硬编码运行结果代替成员函数调用。
+      - >-
+        intvector.cpp 只能包含 iostream，不得使用 printf、std::vector、malloc/free/realloc、全局变量或固定大数组代替动态扩容；不得把私有成员改成 public 或在类外源码中直接访问它们。Lab5.md 中记录调试器看到的私有成员不属于源码违规。
+      - >-
+        Lab5.md 必须保留题目结构，4.1 到 4.11 每题必须且只能选择一个 [x]；4.11 填写原因或“无”；4.12 六行三个数据列全部填写；4.13 至少 30 字；3.6.2 的三处 Markdown 图片引用必须保留且路径与 imgs/ 下的文件名一致；3.6.4 的观察记录填完表中要求填写的 data 与 newData 地址、size、capacity，以及 sizeof(int)、两种容量的字节数和不少于 20 字的解释，明确标为不填写的格子除外。
+      - >-
+        本文本阶段只检查程序、接口结构和作答完整性，不判断选项、运行结果、观察记录或解释是否正确，不根据截图下结论；Memory View 截图的界面、变量与数据关系由独立图片阶段检查。
+    vision_review_points:
+      - >-
+        三张图片须展示 CLion 调试状态，能辨认 intvector.cpp 中的当前执行位置、相关变量以及真正的 Memory View 地址和十六进制字节。仅有菜单、代码编辑器、普通 Variables/Watches 或 Run 输出不满足要求。图片应来自本人电脑截图，不使用手机拍屏、示意图、他人截图或拼接修改的结果；无法从图中确认的事实不得自行推断。
+      - >-
+        memory_before.png 为追加 50 引起的首次合法扩容前，暂停在 expand 的 int newCapacity = capacity * 2 处；可见 size=4、capacity=4 和 data 地址，Memory View 从 data 所指位置起的四个整数对应 10、20、30、40。此时不检查尚未初始化的 newData 或 newCapacity 显示值。
+      - >-
+        memory_copied.png 为复制循环完成、delete[] data 尚未执行的时刻；可见 size=4、capacity=4、newCapacity=8、data 与 newData 两个不同地址；Memory View 显示 newData 指向的新数组，前四个整数对应 10、20、30、40。不要求在同一张图中并排显示旧数组与新数组的两个内存窗口。
+      - >-
+        memory_after.png 为 main 中 v.pushBack(50) 已执行、后续表头插入尚未执行，暂停在“追加 50 后”的输出语句；可见展开的 v 对象 size=5、capacity=8 和 data 地址，Memory View 中当前数组前五个整数对应 10、20、30、40、50。此时不要求显示已离开作用域的 newData。
+      - >-
+        三图应属于同一次调试：before 的 data 地址等于 copied 的 data 地址；copied 的 newData 地址不同于旧地址，并等于 after 的 v.data。比较地址的数值关系，允许十六进制大小写或前导零差异，不要求与教师、其他学生或另一次运行具有相同地址。
+      - >-
+        至少一张截图中可见 sizeof(int) 表达式及其值。按实际 int 大小、字节序和分组方式识别关键整数。常见四字节 int 小端表示为 0a 00 00 00、14 00 00 00、1e 00 00 00、28 00 00 00、32 00 00 00；不要把右侧 ASCII 字符当作整数。不要求显示全部容量，只须看清指定的有效元素及变量中的容量；不检查备用位置是否为零，也不把默认显示的 256 字节误认为数组大小。
+      - >-
+        允许不同 CLion 版本、操作系统、主题、内存窗口位置和字节变化高亮。变量变色、黄色提示或未使用变量显示异常不自动构成失败；不要求释放后旧内存截图，不以残留字节证明空间仍然有效。只能根据明确可见的内容判断，关键文字、地址或字节无法辨认时应进入人工复核。
