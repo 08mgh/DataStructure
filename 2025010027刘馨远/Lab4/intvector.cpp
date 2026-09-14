@@ -1,59 +1,138 @@
 #include <iostream>
-using namespace std;
+
+#define MAX_SIZE 100
 
 class IntVector {
 private:
-    int data[100]; 
+    int data[MAX_SIZE];
     int size;
 
 public:
+    // 构造函数：建立空表
     IntVector() {
         size = 0;
     }
 
-    int getSize() {
+    // 当前元素个数
+    int getSize() const {
         return size;
     }
 
-    bool empty() {
+    // 表是否为空
+    bool empty() const {
         return size == 0;
     }
 
-    int get(int index) {
-
+    // 练习 1：按位置读取
+    // 成功返回 true 并把元素写入 value；index 不在 [0, size - 1] 内返回 false，且不修改 value
+    bool get(int index, int& value) const {
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        value = data[index];
+        return true;
     }
 
-    int find(int value) {
+    // 练习 2：按值查找
+    // 返回第一次出现的下标，未找到返回 -1
+    int find(int value) const {
+        for (int i = 0; i < size; i++) {
+            if (data[i] == value) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    void insert(int index, int value) {
+    // 练习 3：插入
+    // 成功返回 true；表已满(size == MAX_SIZE)或index不在[0, size]内返回false
+    bool insert(int index, int value) {
+        if (size == MAX_SIZE) {
+            return false;
+        }
+        if (index < 0 || index > size) {
+            return false;
+        }
+        // 从后向前移动元素
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
+        }
+        data[index] = value;
+        size++;
+        return true;
     }
 
-    int remove(int index) {
-        return 0; 
+    // 练习 4：删除
+    // 成功返回 true 并把被删除的值写入 removed；index不在[0, size - 1]内返回false，且不修改removed
+    bool remove(int index, int& removed) {
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        removed = data[index];
+        // 从前向后移动元素
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        size--;
+        return true;
     }
 
-    void print() {
+    // 打印
+    // 从下标 0 到 size - 1 依次输出所有有效元素，元素之间用一个空格分隔，末尾换行
+    void print() const {
+        for (int i = 0; i < size; i++) {
+            std::cout << data[i];
+            if (i != size - 1) {
+                std::cout << " ";
+            }
+        }
+        std::cout << std::endl;
     }
 };
 
 int main() {
     IntVector v;
+    std::cout << "空表: size = " << v.getSize() << ", empty = " << v.empty() << std::endl;
 
-    v.insert(2, 25);
-    v.insert(10, 99);
+    v.insert(0, 10);
+    v.insert(1, 20);
+    v.insert(2, 30);
+    v.insert(3, 40);
+    std::cout << "初始: ";
+    v.print();
 
-    cout << "remove(1) returns: " << v.remove(1) << endl; 
-    cout << "remove(4) returns: " << v.remove(4) << endl;
+    bool ok = v.insert(2, 25);
+    std::cout << "insert(2, 25) 返回 " << ok << std::endl;
+    v.print();
 
-    v.get(2);
-    v.get(4);
-    v.find(30);
-    v.find(99);
+    int removed = 0;
+    ok = v.remove(1, removed);
+    std::cout << "remove(1) 返回 " << ok << ", 删除的值是 " << removed << std::endl;
+    v.print();
+
+    ok = v.insert(10, 99);
+    std::cout << "insert(10, 99) 返回 " << ok << std::endl;
+    v.print();
+
+    ok = v.remove(4, removed);
+    std::cout << "remove(4) 返回 " << ok << std::endl;
+    v.print();
+
+    int value = 0;
+    ok = v.get(2, value);
+    std::cout << "get(2) 返回 " << ok << ", value = " << value << std::endl;
+    ok = v.get(4, value);
+    std::cout << "get(4) 返回 " << ok << std::endl;
+
+    std::cout << "find(30) = " << v.find(30) << std::endl;
+    std::cout << "find(99) = " << v.find(99) << std::endl;
+    std::cout << "最终: size = " << v.getSize() << ", empty = " << v.empty() << std::endl;
 
     IntVector other;
-    other.insert(1, 10);
+    other.insert(0, 7);
+    std::cout << "other: ";
     other.print();
+    std::cout << "两个对象的 size: " << v.getSize() << " " << other.getSize() << std::endl;
 
     return 0;
 }
