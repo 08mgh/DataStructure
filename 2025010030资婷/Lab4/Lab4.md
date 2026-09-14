@@ -357,7 +357,7 @@ C 版本的 `insertAt` 和 C++ 版本的 `insert` 相比，以下说法正确的
 | `insertAt(&list, 2, 25)`       | v.insert(2,25)       |
 | `removeAt(&list, 1, &removed)` | v.remove(1,removed)  |
 | 函数体内的 `list->data[i]`     | data[i]              |
-| 返回 `int` 的 `1` / `0`        | 返回bppl的ture/false |
+| 返回 `int` 的 `1` / `0`        | 返回bool的ture/false |
 
 ### 4.13 填空：一句话总结
 
