@@ -8,23 +8,22 @@ private:
     int size;
 
 public:
-    // 构造函数：建立空表
+    // 构造函数：建立空表，把 size 设为 0
     IntVector() {
         size = 0;
     }
 
-    // 当前元素个数
+    // 当前元素个数，必须带 const
     int getSize() const {
         return size;
     }
 
-    // 表是否为空
+    // 表是否为空，必须带 const
     bool empty() const {
         return size == 0;
     }
 
-    // 练习 1：按位置读取
-    // 成功返回 true 并把元素写入 value；index 不在 [0, size - 1] 内返回 false，且不修改 value
+    // 按位置读取，成功返回 true 并写入 value，失败返回 false
     bool get(int index, int& value) const {
         if (index < 0 || index >= size) {
             return false;
@@ -33,8 +32,7 @@ public:
         return true;
     }
 
-    // 练习 2：按值查找
-    // 返回第一次出现的下标，未找到返回 -1
+    // 按值查找，返回下标，找不到返回 -1
     int find(int value) const {
         for (int i = 0; i < size; i++) {
             if (data[i] == value) {
@@ -44,13 +42,9 @@ public:
         return -1;
     }
 
-    // 练习 3：插入
-    // 成功返回 true；表已满(size == MAX_SIZE)或index不在[0, size]内返回false
+    // 插入：边界检查、移动、赋值、size加1
     bool insert(int index, int value) {
-        if (size == MAX_SIZE) {
-            return false;
-        }
-        if (index < 0 || index > size) {
+        if (size == MAX_SIZE || index < 0 || index > size) {
             return false;
         }
         // 从后向前移动元素
@@ -62,8 +56,7 @@ public:
         return true;
     }
 
-    // 练习 4：删除
-    // 成功返回 true 并把被删除的值写入 removed；index不在[0, size - 1]内返回false，且不修改removed
+    // 删除：边界检查、保存删除值、移动、size减1
     bool remove(int index, int& removed) {
         if (index < 0 || index >= size) {
             return false;
@@ -78,13 +71,9 @@ public:
     }
 
     // 打印
-    // 从下标 0 到 size - 1 依次输出所有有效元素，元素之间用一个空格分隔，末尾换行
     void print() const {
         for (int i = 0; i < size; i++) {
-            std::cout << data[i];
-            if (i != size - 1) {
-                std::cout << " ";
-            }
+            std::cout << data[i] << (i == size - 1 ? "" : " ");
         }
         std::cout << std::endl;
     }
