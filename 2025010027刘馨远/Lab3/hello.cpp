@@ -9,7 +9,7 @@ int main(){
     std::cout<<"刘馨远"<< std::endl;
     std::cout<<"2025010027"<< std::endl;
     bool isStudent =true;
-    std::cout<<"isStudent"<< std::endl;
+    std::cout<< isStudent << std::endl;
     
     int myValue=27;
     int result;
