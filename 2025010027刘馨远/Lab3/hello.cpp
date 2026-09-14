@@ -8,7 +8,7 @@ bool getDoubled(int value, int& result){
 int main(){
     std::cout<<"刘馨远"<< std::endl;
     std::cout<<"2025010027"<< std::endl;
-    bool isStudent =ture;
+    bool isStudent =true;
     std::cout<<"isStudent"<< std::endl;
     
     int myValue=27;
