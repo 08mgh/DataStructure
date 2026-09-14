@@ -1,83 +1,59 @@
 #include <iostream>
-
-#define MAX_SIZE 100
+using namespace std;
 
 class IntVector {
 private:
-    int data[MAX_SIZE];
+    int data[100]; 
     int size;
 
 public:
-
     IntVector() {
         size = 0;
     }
 
-    int getSize() const {
+    int getSize() {
         return size;
     }
 
-    bool empty() const {
+    bool empty() {
         return size == 0;
     }
 
-    void print() const {
-        for (int i = 0; i < size; i++) {
-            std::cout << data[i];
-            if (i < size - 1) std::cout << " ";
-        }
-        std::cout << std::endl;
+    int get(int index) {
+
     }
 
-    bool insert(int index, int value) {
-
-        if (size == MAX_SIZE) return false;
-
-        if (index < 0 || index > size) return false;
-
-        for (int i = size; i > index; i--) {
-            data[i] = data[i - 1];
-        }
-        data[index] = value;
-        size++;
-        return true;
+    int find(int value) {
     }
 
-    bool remove(int index, int& removed) {
-        if (index < 0 || index >= size) return false;
-        removed = data[index];
-        for (int i = index; i < size - 1; i++) {
-            data[i] = data[i + 1];
-        }
-        size--;
-        return true;
+    void insert(int index, int value) {
+    }
+
+    int remove(int index) {
+        return 0; 
+    }
+
+    void print() {
     }
 };
 
 int main() {
     IntVector v;
 
-    v.insert(0, 10);
-    v.insert(1, 20);
-    v.insert(2, 30);
-    v.insert(3, 40);
+    v.insert(2, 25);
+    v.insert(10, 99);
 
-    std::cout << "初始: ";
-    v.print();
+    cout << "remove(1) returns: " << v.remove(1) << endl; 
+    cout << "remove(4) returns: " << v.remove(4) << endl;
 
-    std::cout << "insert(2, 25) returns " << v.insert(2, 25) << std::endl;
-    v.print();
+    v.get(2);
+    v.get(4);
+    v.find(30);
+    v.find(99);
 
-    int removed;
-    std::cout << "remove(1) returns " << v.remove(1, removed)
-              << ", removed value is " << removed << std::endl;
-    v.print();
-
-    std::cout << "insert(10, 99) returns " << v.insert(10, 99) << std::endl;
-    v.print();
-
-    std::cout << "remove(4) returns " << v.remove(4, removed) << std::endl;
-    v.print();
+    IntVector other;
+    other.insert(1, 10);
+    other.print();
 
     return 0;
 }
