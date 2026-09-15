@@ -351,13 +351,13 @@ C 版本的 `insertAt` 和 C++ 版本的 `insert` 相比，以下说法正确的
 
 把右列补全，至少填写三行（可以全部填写）：
 
-| C（Lab3 / 课堂） | C++（本次作业） |
-| :--- | :--- |
+| C（Lab3 / 课堂） | C++（本次作业）    |
+| :--- |:-------------------|
 | `SeqList list; list.size = 0;` | IntVector v; |
 | `insertAt(&list, 2, 25)` | v.inser(2,25) |
 | `removeAt(&list, 1, &removed)` | v.remove(1,remove) |
-| 函数体内的 `list->data[i]` | （在此填写） |
-| 返回 `int` 的 `1` / `0` | （在此填写） |
+| 函数体内的 `list->data[i]` | data[i] |
+| 返回 `int` 的 `1` / `0` | 返回bool的true/false |
 
 ### 4.13 填空：一句话总结
 

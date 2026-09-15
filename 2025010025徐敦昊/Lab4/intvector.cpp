@@ -10,17 +10,17 @@ private:
 public:
     // 构造函数：建立空表，对应课堂上的 initList
     IntVector() {
-        size = 0;// TODO：把 size 设为 0
+        size = 0;
     }
 
     // 当前元素个数。size 是 private 的，类外只能通过它读取
     int getSize() const {
-        return size;   // TODO：改为返回 size
+        return size;
     }
 
     // 表是否为空
     bool empty() const {
-        return size == 0;   // TODO
+        return size == 0;
     }
 
     // 练习 1：按位置读取，对应课堂上的 getAt
@@ -29,7 +29,7 @@ public:
         if (index < 0 || index >= size)
             return false;
         value = data[index];
-        return true;// TODO
+        return true;
     }
 
     // 练习 2：按值查找，对应课堂上的 findValue
@@ -40,7 +40,7 @@ public:
                 return i;
             }
         }
-        return -1;   // TODO
+        return -1;
     }
 
     // 练习 3：插入，对应 Lab3 的 insertAt
@@ -53,7 +53,7 @@ public:
         }
         data[index] = value;
         size++;
-        return false;   // TODO
+        return false;
     }
 
     // 练习 4：删除，对应 Lab3 的 removeAt
@@ -66,7 +66,7 @@ public:
             data[i] = data[i + 1];
         }
         size--;
-        return false;   // TODO
+        return false;
     }
 
     // 练习 5：输出，对应 Lab3 的 printList
@@ -79,7 +79,6 @@ public:
              }
          }
         std::cout << std::endl;
-        // TODO
     }
 };
 
