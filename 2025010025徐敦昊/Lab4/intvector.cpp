@@ -46,14 +46,16 @@ public:
     // 练习 3：插入，对应 Lab3 的 insertAt
     // 成功返回 true；表已满（size == MAX_SIZE）或 index 不在 [0, size] 内返回 false
     bool insert(int index, int value) {
-        if (size >= MAX_SIZE and (index < 0 or index >= size))
+        if (size >= MAX_SIZE)
+            return false;
+        if (index < 0 || index > size )
             return false;
         for (int i = size; i > index; i--) {
             data[i] = data[i - 1];
         }
         data[index] = value;
         size++;
-        return false;
+        return true;
     }
 
     // 练习 4：删除，对应 Lab3 的 removeAt
@@ -66,7 +68,7 @@ public:
             data[i] = data[i + 1];
         }
         size--;
-        return false;
+        return true;
     }
 
     // 练习 5：输出，对应 Lab3 的 printList
