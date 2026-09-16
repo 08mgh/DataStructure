@@ -345,58 +345,22 @@ C 版本的 `insertAt` 和 C++ 版本的 `insert` 相比，以下说法正确的
 
 如果选择"不一致"，请说明哪一行不同以及原因：
 
-> 无
+> 无。
 
 ### 4.12 填空：C 与 C++ 写法的对应关系
 
 把右列补全，至少填写三行（可以全部填写）：
 
-| C（Lab3 / 课堂） | C++（本次作业）       |
-| :--- |:----------------------|
-| `SeqList list; list.size = 0;` | IntVector v;size = 0; |
-| `insertAt(&list, 2, 25)` | v.insert(2, 25)       |
-| `removeAt(&list, 1, &removed)` | v. insert(1,removed)  |
-| 函数体内的 `list->data[i]` | data[i]               |
-| 返回 `int` 的 `1` / `0` | true/false            |
+| C（Lab3 / 课堂） | C++（本次作业） |
+| :--- | :--- |
+| `SeqList list; list.size = 0;` | `IntVector v;`（构造函数自动将 size 设为 0） |
+| `insertAt(&list, 2, 25)` | `v.insert(2, 25)` |
+| `removeAt(&list, 1, &removed)` | `v.remove(1, removed)` |
+| 函数体内的 `list->data[i]` | `data[i]` |
+| 返回 `int` 的 `1` / `0` | 返回 `bool` 的 `true` / `false` |
 
 ### 4.13 填空：一句话总结
 
 Lab3 的 `main` 里可以直接写 `list.size = 4;`。用一句话说明：为什么把 `size` 设为 `private` 之后，`insert`、`remove` 里的边界检查才真正"管用"？
 
-> private下的是数据成员，只有类自己的函数才能读写，此时insert和remove里的边界检查才能只有通过类函数这一种方式来检查，使得边界检查变管用。
-
----
-
-## 五、提交要求
-
-将本文件复制到自己的 `学号姓名/Lab4/Lab4.md`，填写选择题答案和填空。最终只提交以下 3 个文件：
-
-```text
-学号姓名/
-└── Lab4/
-    ├── CMakeLists.txt
-    ├── intvector.cpp
-    └── Lab4.md
-```
-
-特别注意：
-
-- `CMakeLists.txt` 必须包含 `lab4_cpp` 目标，源文件为 `intvector.cpp`。
-- `intvector.cpp` 必须是能够独立编译运行的完整程序，包含 `class IntVector` 的完整实现和第三部分给出的 `main`。
-- `Lab4.md` 必须保留题目结构，填写选择题答案和填空。
-- 每道单项选择题必须且只能将一个选项的 `[ ]` 改为 `[x]`，不能全部不选，也不能同时选择多项。
-- 三处填空位置不能留空；4.11 选择"一致"时填写"无"；4.12 至少填写三行。
-- 自动审核只检查是否完成，不判断答案和程序结果是否正确；内容正确性将在期末统一检测。
-- 不需要提交运行截图。
-- 不要提交整个 CLion 项目，不要提交 `cmake-build-*`、`.idea/`、`.exe` 或其他编译产物。
-- `Lab4`、`Lab4.md`、`CMakeLists.txt` 和 `intvector.cpp` 的大小写必须完全一致。
-- PR 标题必须严格使用 `[学号姓名]Lab4作业提交`，右方括号后不能有空格。
-- 一个 PR 只能包含本次 Lab4 的文件，不得修改其他同学、`homework/`、README 或仓库配置。
-
----
-
-## 六、截止时间
-
-**2026 年 9 月 17 日 24:00（即 2026 年 9 月 18 日 00:00，北京时间）**
-
-以 GitHub 记录的最后一次向 PR 推送代码的时间为准。不晚于上述时刻创建 PR 并完成最后一次推送不算超时；超过该时刻新建 PR，或向已有 PR 推送任何修改，均算作超时。审核未通过的同学请务必在截止前完成修改。
+> 因为 `size` 被设为 `private` 后，类外的代码无法直接修改它，只能通过 `insert`、`remove` 等成员函数来操作，而这些成员函数内部会进行边界检查，从而确保 `size` 的值始终是合法的，防止了非法操作。
