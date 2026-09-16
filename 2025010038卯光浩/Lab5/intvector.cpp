@@ -25,9 +25,9 @@ public:
         if (initialCapacity < 1) {
             initialCapacity = 1;
         }
-        size = 0;
         capacity = initialCapacity;
         data = new int[capacity];
+        size = 0;
     }
 
     ~IntVector() {
@@ -96,10 +96,6 @@ public:
     }
 
     void print() const {
-        if (size == 0) {
-            std::cout << std::endl;
-            return;
-        }
         for (int i = 0; i < size; i++) {
             if (i > 0) {
                 std::cout << " ";
