@@ -6,10 +6,13 @@ private:
     int size;
     int capacity;
 
-    // ÓĞ¿ÕÎ»¾ÍÖ±½Ó·µ»Ø£»·ñÔòÉêÇëÁ½±¶ÈİÁ¿£¬¸´ÖÆ¡¢ÊÍ·Å¡¢¸üĞÂ
-    // Ö»¸Ä±ä¿Õ¼ä£¬²»¸Ä±ä size ºÍÒÑÓĞÔªËØµÄË³Ğò
+    // æœ‰ç©ºä½å°±ç›´æ¥è¿”å›ï¼›å¦åˆ™ç”³è¯·ä¸¤å€å®¹é‡ï¼Œå¤åˆ¶ã€é‡Šæ”¾ã€æ›´æ–°
+    // åªæ”¹å˜ç©ºé—´ï¼Œä¸æ”¹å˜ size å’Œå·²æœ‰å…ƒç´ çš„é¡ºåº
     void expand() {
-        int newCapacity=capacity*2;
+        if (size < capacity) {
+            return;
+        }
+        int newCapacity = capacity * 2;
         int* newData = new int[newCapacity];
         for (int i = 0; i < size; i++) {
             newData[i] = data[i];
@@ -17,28 +20,23 @@ private:
         delete[] data;
         data = newData;
         capacity = newCapacity;
-        // TODO£º°´ 2.4 µÄ²½ÖèÊµÏÖ
     }
 
 public:
     explicit IntVector(int initialCapacity = 4) {
-        size = 0;
         if (initialCapacity < 1) {
-            capacity=1;
+            initialCapacity = 1;
         }
-        else {
-            capacity = initialCapacity;
-        }
+        size = 0;
+        capacity = initialCapacity;
         data = new int[capacity];
-        // TODO£º°Ñ±¾º¯ÊıÌåÌæ»»ÎªÕıÈ·µÄ¹¹Ôì¹ı³Ì
-        // Ğ¡ÓÚ 1 µÄ³õÊ¼ÈİÁ¿Í³Ò»µ÷ÕûÎª 1
     }
 
     ~IntVector() {
-        delete[] data;// TODO£ºÊÍ·Åµ±Ç°¶¯Ì¬Êı×é
+        delete[] data;
     }
 
-    // ½ÌÊ¦Ìá¹©£º½ûÖ¹¸´ÖÆ¶ÔÏó£¬Ô­Ñù±£Áô£¬²»¿¼²éÍêÕûÓï·¨
+    // æ•™å¸ˆæä¾›ï¼šç¦æ­¢å¤åˆ¶å¯¹è±¡ï¼ŒåŸæ ·ä¿ç•™ï¼Œä¸è€ƒæŸ¥å®Œæ•´è¯­æ³•
     IntVector(const IntVector&) = delete;
     IntVector& operator=(const IntVector&) = delete;
 
@@ -47,34 +45,34 @@ public:
     }
 
     int getCapacity() const {
-        return capacity;  // TODO
+        return capacity;
     }
 
     bool empty() const {
         return size == 0;
     }
 
-    // ³É¹¦·µ»Ø true ²¢Ğ´Èë value£»·Ç·¨ÏÂ±ê·µ»Ø false£¬±£³Ö value ²»±ä
+    // æˆåŠŸè¿”å› true å¹¶å†™å…¥ valueï¼›éæ³•ä¸‹æ ‡è¿”å› falseï¼Œä¿æŒ value ä¸å˜
     bool get(int index, int& value) const {
         if (index < 0 || index >= size) {
             return false;
         }
         value = data[index];
-        return true;  // TODO£ºÇ¨ÒÆ Lab4
+        return true;
     }
 
-    // ·µ»ØµÚÒ»´Î³öÏÖµÄÏÂ±ê£¬Î´ÕÒµ½·µ»Ø -1
+    // è¿”å›ç¬¬ä¸€æ¬¡å‡ºç°çš„ä¸‹æ ‡ï¼Œæœªæ‰¾åˆ°è¿”å› -1
     int find(int value) const {
-        for (int i=0;i<size;i++) {
+        for (int i = 0; i < size; i++) {
             if (data[i] == value) {
                 return i;
             }
         }
-        return -1;  // TODO£ºÇ¨ÒÆ Lab4
+        return -1;
     }
 
-    // ÏÈ¼ì²é 0 <= index <= size£¬ÔÙ expand£¬ÔÙ°´ Lab4 µÄ·½ÏòÓÒÒÆ
-    // ³É¹¦·µ»Ø true£»·Ç·¨ÏÂ±ê·µ»Ø false£¬Õû¸ö¶ÔÏó×´Ì¬²»±ä
+    // å…ˆæ£€æŸ¥ 0 <= index <= sizeï¼Œå† expandï¼Œå†æŒ‰ Lab4 çš„æ–¹å‘å³ç§»
+    // æˆåŠŸè¿”å› trueï¼›éæ³•ä¸‹æ ‡è¿”å› falseï¼Œæ•´ä¸ªå¯¹è±¡çŠ¶æ€ä¸å˜
     bool insert(int index, int value) {
         if (index < 0 || index > size) {
             return false;
@@ -82,142 +80,140 @@ public:
         if (size == capacity) {
             expand();
         }
-        for (int i=size; i>index; i--) {
-            data[i] = data[i-1];
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
         }
         data[index] = value;
         size++;
-        return true;  // TODO£º¸ÄÔì Lab4
+        return true;
     }
 
-    // ³É¹¦·µ»Ø true ²¢Ğ´Èë removed£»·Ç·¨ÏÂ±ê·µ»Ø false£¬±£³Ö removed ²»±ä
-    // ±¾´Î²»ËõÈİ£¬²»ÔÚÕâÀï delete[] data
+    // æˆåŠŸè¿”å› true å¹¶å†™å…¥ removedï¼›éæ³•ä¸‹æ ‡è¿”å› falseï¼Œä¿æŒ removed ä¸å˜
+    // æœ¬æ¬¡ä¸ç¼©å®¹ï¼Œä¸åœ¨è¿™é‡Œ delete[] data
     bool remove(int index, int& removed) {
         if (index < 0 || index >= size) {
             return false;
         }
         removed = data[index];
-        for (int i=index; i<size-1; i++) {
-            data[i] = data[i+1];
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
         }
         size--;
-        return true;  // TODO£ºÇ¨ÒÆ Lab4
+        return true;
     }
 
     void pushBack(int value) {
         insert(size, value);
-        // TODO£ºµ÷ÓÃ insert(size, value)
     }
 
-    // ÔªËØÖ®¼äÒ»¸ö¿Õ¸ñ£¬ĞĞÊ×¡¢ĞĞÎ²Ã»ÓĞ¿Õ¸ñ£¬×îºó»»ĞĞ£»¿Õ±íÖ»Êä³ö»»ĞĞ
+    // å…ƒç´ ä¹‹é—´ä¸€ä¸ªç©ºæ ¼ï¼Œè¡Œé¦–ã€è¡Œå°¾æ²¡æœ‰ç©ºæ ¼ï¼Œæœ€åæ¢è¡Œï¼›ç©ºè¡¨åªè¾“å‡ºæ¢è¡Œ
     void print() const {
-        for (int i=0;i<size;i++) {
-            if (i>0) {
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
                 std::cout << ' ';
             }
             std::cout << data[i];
         }
-        std::cout << std::endl;  // TODO£ºÇ¨ÒÆ Lab4£¬²¹ÉÏÓĞĞ§ÔªËØÊä³ö
+        std::cout << std::endl;
     }
 };
 
-
 int main() {
     IntVector v;
-    std::cout << "¿Õ±í: size = " << v.getSize()
+    std::cout << "ç©ºè¡¨: size = " << v.getSize()
               << ", capacity = " << v.getCapacity()
               << ", empty = " << v.empty() << std::endl;
 
     int value = 777;
     bool ok = v.get(0, value);
-    std::cout << "¿Õ±í get(0) ·µ»Ø " << ok << ", value = " << value << std::endl;
+    std::cout << "ç©ºè¡¨ get(0) è¿”å› " << ok << ", value = " << value << std::endl;
     int removed = 888;
     ok = v.remove(0, removed);
-    std::cout << "¿Õ±í remove(0) ·µ»Ø " << ok << ", removed = " << removed << std::endl;
+    std::cout << "ç©ºè¡¨ remove(0) è¿”å› " << ok << ", removed = " << removed << std::endl;
 
     v.pushBack(10);
     v.pushBack(20);
     v.pushBack(30);
     v.pushBack(40);
-    std::cout << "Ê×´Î×°Âú: size = " << v.getSize()
+    std::cout << "é¦–æ¬¡è£…æ»¡: size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     ok = v.insert(5, 99);
-    std::cout << "Âú±í insert(5, 99) ·µ»Ø " << ok
+    std::cout << "æ»¡è¡¨ insert(5, 99) è¿”å› " << ok
               << ", size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     v.pushBack(50);
-    std::cout << "×·¼Ó 50 ºó: size = " << v.getSize()
+    std::cout << "è¿½åŠ  50 å: size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     ok = v.insert(0, 5);
-    std::cout << "±íÍ· insert(0, 5) ·µ»Ø " << ok << std::endl;
+    std::cout << "è¡¨å¤´ insert(0, 5) è¿”å› " << ok << std::endl;
     v.print();
     ok = v.insert(3, 25);
-    std::cout << "ÖĞ¼ä insert(3, 25) ·µ»Ø " << ok << std::endl;
+    std::cout << "ä¸­é—´ insert(3, 25) è¿”å› " << ok << std::endl;
     v.print();
     ok = v.insert(v.getSize(), 60);
-    std::cout << "±íÎ²²åÈë 60 ·µ»Ø " << ok << std::endl;
+    std::cout << "è¡¨å°¾æ’å…¥ 60 è¿”å› " << ok << std::endl;
     v.print();
-    std::cout << "ÔÙ´Î×°Âú: size = " << v.getSize()
+    std::cout << "å†æ¬¡è£…æ»¡: size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
 
     ok = v.insert(4, 28);
-    std::cout << "Âú±í insert(4, 28) ·µ»Ø " << ok
+    std::cout << "æ»¡è¡¨ insert(4, 28) è¿”å› " << ok
               << ", size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     ok = v.remove(0, removed);
-    std::cout << "remove(0) ·µ»Ø " << ok << ", removed = " << removed << std::endl;
+    std::cout << "remove(0) è¿”å› " << ok << ", removed = " << removed << std::endl;
     v.print();
     ok = v.remove(3, removed);
-    std::cout << "remove(3) ·µ»Ø " << ok << ", removed = " << removed << std::endl;
+    std::cout << "remove(3) è¿”å› " << ok << ", removed = " << removed << std::endl;
     v.print();
     ok = v.remove(v.getSize() - 1, removed);
-    std::cout << "É¾³ı±íÎ² ·µ»Ø " << ok << ", removed = " << removed << std::endl;
+    std::cout << "åˆ é™¤è¡¨å°¾ è¿”å› " << ok << ", removed = " << removed << std::endl;
     v.print();
-    std::cout << "É¾³ıºó: size = " << v.getSize()
+    std::cout << "åˆ é™¤å: size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
 
     ok = v.get(3, value);
-    std::cout << "get(3) ·µ»Ø " << ok << ", value = " << value << std::endl;
+    std::cout << "get(3) è¿”å› " << ok << ", value = " << value << std::endl;
     std::cout << "find(30) = " << v.find(30) << std::endl;
     std::cout << "find(99) = " << v.find(99) << std::endl;
 
     value = 777;
     ok = v.get(v.getSize(), value);
-    std::cout << "get(size) ·µ»Ø " << ok << ", value = " << value << std::endl;
+    std::cout << "get(size) è¿”å› " << ok << ", value = " << value << std::endl;
     ok = v.get(-1, value);
-    std::cout << "get(-1) ·µ»Ø " << ok << ", value = " << value << std::endl;
+    std::cout << "get(-1) è¿”å› " << ok << ", value = " << value << std::endl;
     removed = 888;
     ok = v.remove(v.getSize(), removed);
-    std::cout << "remove(size) ·µ»Ø " << ok << ", removed = " << removed << std::endl;
+    std::cout << "remove(size) è¿”å› " << ok << ", removed = " << removed << std::endl;
     ok = v.remove(-1, removed);
-    std::cout << "remove(-1) ·µ»Ø " << ok << ", removed = " << removed << std::endl;
+    std::cout << "remove(-1) è¿”å› " << ok << ", removed = " << removed << std::endl;
     ok = v.insert(-1, 99);
-    std::cout << "insert(-1, 99) ·µ»Ø " << ok << std::endl;
-    std::cout << "·Ç·¨²Ù×÷ºó: size = " << v.getSize()
+    std::cout << "insert(-1, 99) è¿”å› " << ok << std::endl;
+    std::cout << "éæ³•æ“ä½œå: size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     for (int i = 0; i < 6; i++) {
         v.remove(0, removed);
     }
-    std::cout << "É¾³ıÈ«²¿: size = " << v.getSize()
+    std::cout << "åˆ é™¤å…¨éƒ¨: size = " << v.getSize()
               << ", capacity = " << v.getCapacity()
               << ", empty = " << v.empty() << std::endl;
     v.pushBack(-1);
-    std::cout << "Çå¿Õºó×·¼Ó: size = " << v.getSize()
+    std::cout << "æ¸…ç©ºåè¿½åŠ : size = " << v.getSize()
               << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     IntVector small(0);
-    std::cout << "³õÊ¼ÈİÁ¿´« 0: size = " << small.getSize()
+    std::cout << "åˆå§‹å®¹é‡ä¼  0: size = " << small.getSize()
               << ", capacity = " << small.getCapacity() << std::endl;
     small.pushBack(7);
     small.pushBack(7);
@@ -227,11 +223,11 @@ int main() {
     std::cout << "small.find(7) = " << small.find(7) << std::endl;
 
     IntVector negative(-3);
-    std::cout << "³õÊ¼ÈİÁ¿´« -3: size = " << negative.getSize()
+    std::cout << "åˆå§‹å®¹é‡ä¼  -3: size = " << negative.getSize()
               << ", capacity = " << negative.getCapacity() << std::endl;
-    std::cout << "v ÈÔÎª: ";
+    std::cout << "v ä»ä¸º: ";
     v.print();
-    std::cout << "¸÷¶ÔÏóµÄ size: " << v.getSize()
+    std::cout << "å„å¯¹è±¡çš„ size: " << v.getSize()
               << ' ' << small.getSize()
               << ' ' << negative.getSize() << std::endl;
 
