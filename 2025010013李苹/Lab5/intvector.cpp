@@ -11,9 +11,13 @@ private:
             return;
         int newCap = (capacity == 0) ? 4 : capacity * 2;
         int* newData = new int[newCap];
-        for (int i = 0; i < size; ++i)
+        // ✅ 只有capacity>0，data才不是空指针，才拷贝元素
+        if(capacity > 0)
         {
-            newData[i] = data[i];
+            for (int i = 0; i < size; ++i)
+            {
+                newData[i] = data[i];
+            }
         }
         delete[] data;
         data = newData;
@@ -22,11 +26,11 @@ private:
 
 public:
     explicit IntVector(int initialCapacity = 4) {
-        data = nullptr;
-        size = 0;
-        capacity = 0;
+        // ✅ 先修正initialCapacity
         if (initialCapacity < 1)
             initialCapacity = 1;
+        data = nullptr;
+        size = 0;
         capacity = initialCapacity;
         data = new int[capacity];
     }
@@ -50,10 +54,10 @@ public:
         return size == 0;
     }
 
+    // ✅【修复get】非法下标，不修改value，直接return false
     bool get(int index, int& value) const {
         if (index < 0 || index >= size)
         {
-            value = 777;
             return false;
         }
         value = data[index];
@@ -82,10 +86,10 @@ public:
         return true;
     }
 
+    // ✅【修复remove】非法下标，不修改removed，直接return false
     bool remove(int index, int& removed) {
         if (index < 0 || index >= size)
         {
-            removed = 888;
             return false;
         }
         removed = data[index];
@@ -112,6 +116,7 @@ public:
     }
 };
 
+// ========== main函数【原样完全保留，一点都不要删改！！】==========
 int main()
 {
     IntVector v;
@@ -191,7 +196,7 @@ int main()
     std::cout << "非法操作后: size = " << v.getSize() << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
-    // 删除全部
+    // 删除全部【！！这里保留原来while，绝对不能改成for循环！！】
     while(!v.empty())
     {
         v.remove(0, rem);
