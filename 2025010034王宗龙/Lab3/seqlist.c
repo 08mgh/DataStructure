@@ -9,30 +9,15 @@ typedef struct {
 
 void printList(const SeqList *list) {
     for (int i = 0; i < list->size; i++) {
-<<<<<<< HEAD
-        printf("%d", list->data[i]);
-        if (i < list->size - 1) {
-            printf(" ");
-        }
-=======
         if (i > 0) {
             printf(" ");
         }
         printf("%d", list->data[i]);
->>>>>>> 70e09ca42363699cc58d513f383552294016a8f2
     }
     printf("\n");
 }
 
 int insertAt(SeqList *list, int index, int value) {
-<<<<<<< HEAD
-    if (list->size == MAX_SIZE || index < 0 || index > list->size) {
-        return 0;
-    }
-    for (int i = list->size; i > index; i--) {
-        list->data[i] = list->data[i - 1];
-    }
-=======
     if (list->size == MAX_SIZE) {
         return 0;
     }
@@ -44,22 +29,12 @@ int insertAt(SeqList *list, int index, int value) {
         list->data[i] = list->data[i - 1];
     }
     
->>>>>>> 70e09ca42363699cc58d513f383552294016a8f2
     list->data[index] = value;
     list->size++;
     return 1;
 }
 
 int removeAt(SeqList *list, int index, int *removed) {
-<<<<<<< HEAD
-    if (removed == NULL || index < 0 || index >= list->size) {
-        return 0;
-    }
-    *removed = list->data[index];
-    for (int i = index; i < list->size - 1; i++) {
-        list->data[i] = list->data[i + 1];
-    }
-=======
     if (index < 0 || index >= list->size) {
         return 0;
     }
@@ -70,7 +45,6 @@ int removeAt(SeqList *list, int index, int *removed) {
         list->data[i] = list->data[i + 1];
     }
     
->>>>>>> 70e09ca42363699cc58d513f383552294016a8f2
     list->size--;
     return 1;
 }
