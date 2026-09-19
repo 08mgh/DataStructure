@@ -44,7 +44,7 @@ public:
         return size;
     }
 
-    int getcapacity() const {
+    int getCapacity() const {
         return capacity;
     }
 
@@ -119,7 +119,7 @@ public:
 int main() {
     IntVector v;
     std::cout << "空表: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity()
+              << ", capacity = " << v.getCapacity()
               << ", empty = " << v.empty() << std::endl;
 
     int value = 777;
@@ -134,18 +134,18 @@ int main() {
     v.pushBack(30);
     v.pushBack(40);
     std::cout << "首次装满: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     ok = v.insert(5, 99);
     std::cout << "满表 insert(5, 99) 返回 " << ok
               << ", size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     v.pushBack(50);
     std::cout << "追加 50 后: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     ok = v.insert(0, 5);
@@ -158,12 +158,12 @@ int main() {
     std::cout << "表尾插入 60 返回 " << ok << std::endl;
     v.print();
     std::cout << "再次装满: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
 
     ok = v.insert(4, 28);
     std::cout << "满表 insert(4, 28) 返回 " << ok
               << ", size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     ok = v.remove(0, removed);
@@ -176,7 +176,7 @@ int main() {
     std::cout << "删除表尾 返回 " << ok << ", removed = " << removed << std::endl;
     v.print();
     std::cout << "删除后: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
 
     ok = v.get(3, value);
     std::cout << "get(3) 返回 " << ok << ", value = " << value << std::endl;
@@ -196,33 +196,33 @@ int main() {
     ok = v.insert(-1, 99);
     std::cout << "insert(-1, 99) 返回 " << ok << std::endl;
     std::cout << "非法操作后: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     for (int i = 0; i < 6; i++) {
         v.remove(0, removed);
     }
     std::cout << "删除全部: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity()
+              << ", capacity = " << v.getCapacity()
               << ", empty = " << v.empty() << std::endl;
     v.pushBack(-1);
     std::cout << "清空后追加: size = " << v.getSize()
-              << ", capacity = " << v.getcapacity() << std::endl;
+              << ", capacity = " << v.getCapacity() << std::endl;
     v.print();
 
     IntVector small(0);
     std::cout << "初始容量传 0: size = " << small.getSize()
-              << ", capacity = " << small.getcapacity() << std::endl;
+              << ", capacity = " << small.getCapacity() << std::endl;
     small.pushBack(7);
     small.pushBack(7);
     std::cout << "small: size = " << small.getSize()
-              << ", capacity = " << small.getcapacity() << std::endl;
+              << ", capacity = " << small.getCapacity() << std::endl;
     small.print();
     std::cout << "small.find(7) = " << small.find(7) << std::endl;
 
     IntVector negative(-3);
     std::cout << "初始容量传 -3: size = " << negative.getSize()
-              << ", capacity = " << negative.getcapacity() << std::endl;
+              << ", capacity = " << negative.getCapacity() << std::endl;
     std::cout << "v 仍为: ";
     v.print();
     std::cout << "各对象的 size: " << v.getSize()
