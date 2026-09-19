@@ -12,14 +12,14 @@ private:
         if (size < capacity) {
             return;
         }
-        int newcapacity = capacity * 2;
-        int* newData = new int[newcapacity];
+        int newCapacity = capacity * 2;
+        int* newData = new int[newCapacity];
         for (int i = 0; i < size; i++) {
             newData[i] = data[i];
         }
         delete[] data;
         data = newData;
-        capacity = newcapacity;
+        capacity = newCapacity;
     }
 
 public:
@@ -100,7 +100,7 @@ public:
         return true;
     }
 
-    void pushback(int value) {
+    void pushBack(int value) {
         insert(size, value);
     }
 
@@ -129,10 +129,10 @@ int main() {
     ok = v.remove(0, removed);
     std::cout << "空表 remove(0) 返回 " << ok << ", removed = " << removed << std::endl;
 
-    v.pushback(10);
-    v.pushback(20);
-    v.pushback(30);
-    v.pushback(40);
+    v.pushBack(10);
+    v.pushBack(20);
+    v.pushBack(30);
+    v.pushBack(40);
     std::cout << "首次装满: size = " << v.getSize()
               << ", capacity = " << v.getcapacity() << std::endl;
     v.print();
@@ -143,7 +143,7 @@ int main() {
               << ", capacity = " << v.getcapacity() << std::endl;
     v.print();
 
-    v.pushback(50);
+    v.pushBack(50);
     std::cout << "追加 50 后: size = " << v.getSize()
               << ", capacity = " << v.getcapacity() << std::endl;
     v.print();
@@ -205,7 +205,7 @@ int main() {
     std::cout << "删除全部: size = " << v.getSize()
               << ", capacity = " << v.getcapacity()
               << ", empty = " << v.empty() << std::endl;
-    v.pushback(-1);
+    v.pushBack(-1);
     std::cout << "清空后追加: size = " << v.getSize()
               << ", capacity = " << v.getcapacity() << std::endl;
     v.print();
@@ -213,8 +213,8 @@ int main() {
     IntVector small(0);
     std::cout << "初始容量传 0: size = " << small.getSize()
               << ", capacity = " << small.getcapacity() << std::endl;
-    small.pushback(7);
-    small.pushback(7);
+    small.pushBack(7);
+    small.pushBack(7);
     std::cout << "small: size = " << small.getSize()
               << ", capacity = " << small.getcapacity() << std::endl;
     small.print();
