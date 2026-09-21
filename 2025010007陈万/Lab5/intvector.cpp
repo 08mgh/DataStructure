@@ -6,26 +6,34 @@ private:
     int size;
     int capacity;
 
-    // 有空位就直接返回；否则申请两倍容量，复制、释放、更新
-    // 只改变空间，不改变 size 和已有元素的顺序
     void expand() {
-        // TODO：按 2.4 的步骤实现
+        if (size < capacity) {
+            return;
+        }
+        int newCapacity = capacity * 2;
+        int* newData = new int[newCapacity];
+        for (int i = 0; i < size; i++) {
+            newData[i] = data[i];
+        }
+        delete[] data;
+        data = newData;
+        capacity = newCapacity;
     }
 
 public:
     explicit IntVector(int initialCapacity = 4) {
-        data = nullptr;
+        if (initialCapacity < 1) {
+            initialCapacity = 1;
+        }
+        data = new int[initialCapacity];
         size = 0;
-        capacity = 0;
-        // TODO：把本函数体替换为正确的构造过程
-        // 小于 1 的初始容量统一调整为 1
+        capacity = initialCapacity;
     }
 
     ~IntVector() {
-        // TODO：释放当前动态数组
+        delete[] data;
     }
 
-    // 教师提供：禁止复制对象，原样保留，不考查完整语法
     IntVector(const IntVector&) = delete;
     IntVector& operator=(const IntVector&) = delete;
 
@@ -34,44 +42,70 @@ public:
     }
 
     int getCapacity() const {
-        return 0;  // TODO
+        return capacity;
     }
 
     bool empty() const {
         return size == 0;
     }
 
-    // 成功返回 true 并写入 value；非法下标返回 false，保持 value 不变
     bool get(int index, int& value) const {
-        return false;  // TODO：迁移 Lab4
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        value = data[index];
+        return true;
     }
 
-    // 返回第一次出现的下标，未找到返回 -1
     int find(int value) const {
-        return -1;  // TODO：迁移 Lab4
+        for (int i = 0; i < size; i++) {
+            if (data[i] == value) {
+                return i;
+            }
+        }
+        return -1;
     }
 
-    // 先检查 0 <= index <= size，再 expand，再按 Lab4 的方向右移
-    // 成功返回 true；非法下标返回 false，整个对象状态不变
     bool insert(int index, int value) {
-        return false;  // TODO：改造 Lab4
+        if (index < 0 || index > size) {
+            return false;
+        }
+        expand();
+        for (int i = size; i > index; i--) {
+            data[i] = data[i - 1];
+        }
+        data[index] = value;
+        size++;
+        return true;
     }
 
-    // 成功返回 true 并写入 removed；非法下标返回 false，保持 removed 不变
-    // 本次不缩容，不在这里 delete[] data
     bool remove(int index, int& removed) {
-        return false;  // TODO：迁移 Lab4
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        removed = data[index];
+        for (int i = index; i < size - 1; i++) {
+            data[i] = data[i + 1];
+        }
+        size--;
+        return true;
     }
 
     void pushBack(int value) {
-        // TODO：调用 insert(size, value)
+        insert(size, value);
     }
 
-    // 元素之间一个空格，行首、行尾没有空格，最后换行；空表只输出换行
     void print() const {
-        std::cout << std::endl;  // TODO：迁移 Lab4，补上有效元素输出
+        for (int i = 0; i < size; i++) {
+            if (i > 0) {
+                std::cout << " ";
+            }
+            std::cout << data[i];
+        }
+        std::cout << std::endl;
     }
 };
+
 int main() {
     IntVector v;
     std::cout << "空表: size = " << v.getSize()
