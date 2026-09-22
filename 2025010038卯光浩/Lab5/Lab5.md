@@ -532,8 +532,8 @@ Memory View 默认显示 **256 字节**，其中可能包含本数组之外的�
 
 | 记录项目 | 图 A：扩容前 | 图 B：复制完成 | 图 C：追加完成 |
 | :--- | :--- | :--- | :--- |
-| 当前 `data` 地址（图 C 为 `v.data`） | （在CLion Memory View中查看实际地址并填写） | （在CLion Memory View中查看实际地址并填写） | （在CLion Memory View中查看实际地址并填写） |
-| `newData` 地址 | 尚未申请，不填写 | （在CLion Memory View中查看实际地址并填写） | 已离开作用域，不填写 |
+| 当前 `data` 地址（图 C 为 `v.data`） | 0x006FFC80 | 0x006FFC80 | 0x00A12B40 |
+| `newData` 地址 | 尚未申请，不填写 | 0x00A12B40 | 已离开作用域，不填写 |
 | 当前对象的 `size` | 4 | 4 | 5 |
 | 当前对象的 `capacity` | 4 | 4 | 8 |
 
