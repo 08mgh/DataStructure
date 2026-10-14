@@ -1,40 +1,36 @@
 #include <iostream>
 #include "stack.h"
 
+/* 判断左括号 left 能否与右括号 right 配成一对。 */
+bool matched(char left, char right) {
+    return (left == '(' && right == ')') ||
+           (left == '[' && right == ']') ||
+           (left == '{' && right == '}');
+}
+
 /* 学生完成：只检查 exp[lo, hi)，调用者保证区间合法。 */
 bool paren(const char exp[], Rank lo, Rank hi) {
-    Stack<char> stack;
-    for (int i=lo;i<hi;++i) {
-        char c = exp[i];
-        if (c=='(' || c=='[' || c=='{') {
-            stack.push(c);
-        }else if (c==')' || c==']' || c=='}') {
-            if (stack.empty()) {
-                return false;
-            }
-            if ((c==')'&&stack.top()!='(') ||(c==']'&&stack.top()!='[') || (c=='}'&&stack.top()!='{')) {
-                return false;
-            }
-            stack.pop();
-        }
-
-    }
-    return stack.empty();
-    /* TODO 5：用 Stack<char> 检查 exp[lo, hi) 里的三种括号，忽略其他字符，返回是否匹配。
+    /* 用 Stack<char> 检查 exp[lo, hi) 里的三种括号，忽略其他字符。
      *
-     * 思路——从左向右扫一遍：
-     *  1. 遇到左括号：暂时还配不上，压入栈，等后面的右括号来配。
-     *  2. 遇到右括号：能跟它配的只有“最近一个尚未匹配的左括号”，也就是栈顶。
-     *     先判空——栈空说明前面没有左括号可配，失败；
-     *     再比类型——栈顶与当前右括号不同类，说明嵌套顺序错了，失败；
-     *     两条都过，才算配成一对，弹出栈顶。
-     *  3. 其他字符（字母、空格、引号……）不动栈，直接跳过。
-     *  4. 扫到 hi 只说明途中没遇到非法右括号，栈里还可能剩着左括号，
-     *     因此最后返回 S.empty()：栈空才算整个区间匹配。
-     *
-     * 注意：只处理 [lo, hi)，不要从 0 开始，也不要读到字符串结尾标记；
-     *       取栈顶之前必须先判空。
+     *  1. 遇到左括号：压栈，等后面的右括号来配。
+     *  2. 遇到右括号：先判空（栈空说明没有左括号可配，失败），
+     *     再比类型（栈顶与当前右括号不同类，嵌套顺序错了，失败），
+     *     两条都过才配成一对，弹出栈顶。
+     *  3. 其他字符不动栈，直接跳过。
+     *  4. 扫完 [lo, hi) 后返回 S.empty()：栈空才算整个区间匹配。
      */
+    Stack<char> S;
+    for (Rank i = lo; i < hi; ++i) {
+        char c = exp[i];
+        if (c == '(' || c == '[' || c == '{') {
+            S.push(c);
+        } else if (c == ')' || c == ']' || c == '}') {
+            if (S.empty()) return false;
+            if (!matched(S.top(), c)) return false;
+            S.pop();
+        }
+    }
+    return S.empty();
 }
 
 /* 以下测试与 main 由教师提供，不得修改。按题目中的输出逐项核对。 */
