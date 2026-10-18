@@ -219,11 +219,15 @@ void levelOrder(Node* root);
 | 3 | preorder(nullptr | 发现是空树，直接返回 |
 | 4 | preorder(nullptr) | 发现是空树，直接返回 (B 的右孩子) |
 | 5 | preorder(C) | 输出 C, 进入左子树 |
-| 6 | preorder(nullptr) | | 空树返回 |
+| 6 | preorder(nullptr) |  空树返回 |
 | 7 | preorder(nullptr) | 空树返回 |
 
 - 这 7 次调用中有几次是"空树直接返回"？7次调用中有 4 次是“空树直接返回”。
 - 对有 `n` 个节点的二叉树执行一次先序遍历，`preorder` 一共被调用多少次（含空树调用）？对于 n 个节点的二叉树，preorder 一共被调用 2n + 1 次。
+
+
+
+
 ### 6.4 时间与空间
 
 按本实验实现分析；视一次输出、一次入队出队为常数开销。令 `n` 为节点总数，`h` 为树高，`w` 为树的最大宽度（同一层最多的节点数）。
