@@ -122,15 +122,15 @@ bool BinTree::build(const char* seq) {
 }
 
 bool BinTree::remove(char e) {
+    BinNodePosi& slot = search(e);
     if (slot == nullptr) {
-        return false;   // 没找到
+        return false; 
     }
     
     if (HasChild(*slot)) {
-        return false;   // 不是叶子，拒绝删除
+        return false; 
     }
     
-    // 是叶子，释放内存，把槽置空
     delete slot;
     slot = nullptr;
     return true;
@@ -142,11 +142,6 @@ bool BinTree::remove(char e) {
 }
 
 bool BinTree::update(char oldValue, char newValue) {
-    if (oldValue == newValue) {
-        return false; 
-    }
-    
-    BinNodePosi& oldSlot = search(oldValue);
     if (oldValue == newValue) {
         return false; 
     }
