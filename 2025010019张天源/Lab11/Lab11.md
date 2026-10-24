@@ -214,13 +214,13 @@ void levelOrder(Node* root);
 
 | 调用顺序 | 当前调用 | 动作 |
 | :---: | :--- | :--- |
-|1|	preorder(A)|   	输出 A，进入左子树
-|2|	preorder(B)	|输出 B，进入左子树
-|3|	preorder(nullptr)|	空树，直接返回
-|4|	preorder(nullptr)	|空树，直接返回，B 调用结束，回到 A，进入 A 右子树
-|5|	preorder(C)	|输出 C，进入左子树
-|6|	preorder(nullptr)	|空树，直接返回
-|7|	preorder(nullptr)	|空树，直接返回，C 调用结束
+|1|	preorder(A)|   	输出 A，进入左子树|
+|2|	preorder(B)	|输出 B，进入左子树|
+|3|	preorder(nullptr)|	空树，直接返回|
+|4|	preorder(nullptr)	|空树，直接返回，B 调用结束，回到 A，进入 A 右子树|
+|5|	preorder(C)	|输出 C，进入左子树|
+|6|	preorder(nullptr)	|空树，直接返回|
+|7|	preorder(nullptr)	|空树，直接返回，C 调用结束|
 
 - 这 7 次调用中有几次是"空树直接返回"？4 次
 - 对有 `n` 个节点的二叉树执行一次先序遍历，`preorder` 一共被调用多少次（含空树调用）？2n+1 次
