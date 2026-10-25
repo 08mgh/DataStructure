@@ -128,6 +128,7 @@ bool BinTree::remove(char e) {
      * 是叶子时先 delete 这个节点，再把这一格槽写成 nullptr——这一步不能省，
      * 否则父节点还指着已经释放的节点。
      */
+    BinNodePosi& slot = search(e);
     if (slot == nullptr) {
         return false;
     }
